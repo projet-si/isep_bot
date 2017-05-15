@@ -6,3 +6,5 @@ Baby-Groot
 - Charlène Bernier
 - Yvan Bezard-Falgas
 - Maxime Pasqualini
+- Mickael Petit
+- Sacha Mettoudi
