@@ -15,6 +15,10 @@ client.on('message', msg => {
   if (msg.content === 'hello') {
     msg.channel.sendMessage('Hello to you too, fellow !')
   }
+
+  if (msg.content === 'bye') {
+    msg.channel.sendMessage('Good night !')
+  }
 })
 
 client.login(config.token)
