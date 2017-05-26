@@ -10,7 +10,8 @@ var spotifyApi = new SpotifyWebApi({
 })
 var YouTube = require('youtube-node')
 var youtube = new YouTube()
-youtube.setKey('AIzaSyB1OOSpTREs85WUMvIgJvLTZKye4BVsoFU')
+youtube.setKey('AIzaSyA961WArdG_rzAFtRqEaWsE98ZiM4Sa7Lw')
+
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.username}!`)
@@ -101,6 +102,9 @@ client.on('ready', () => {
   console.log('Something went wrong!', err)
 })
   }
+  if (msg.content === '!help') {
+    msg.channel.sendMessage('Hi you can use the youtube service by typing "!youtube myresearch"! I will do the best for you')
+  }
   if (msg.content.startsWith("!youtube ")) {
     youtube.search(msg.content.substring(6), 3, function(error, result) {
       if (error) {
@@ -115,5 +119,5 @@ client.on('ready', () => {
       }
     })
   }
-  })
+})
 client.login(config.token)
