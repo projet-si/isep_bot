@@ -32,5 +32,16 @@ client.on('message', msg => {
       }
     })
   }
+  if (msg.content.startsWith('youtube-user ')) {
+    youtube.search(msg.content.substring(14), 3, function (error, result) {
+      if (error) {
+        console.log(error)
+      } else {
+        msg.channel.sendMessage('Voilà le premier lien en rapport avec votre recherche https://www.youtube.com/user/' + result.items[0].snippet.channelTitle)
+        msg.channel.sendMessage('Voilà le premier lien en rapport avec votre recherche https://www.youtube.com/user/' + result.items[1].snippet.channelTitle)
+        msg.channel.sendMessage('Voilà le premier lien en rapport avec votre recherche https://www.youtube.com/user/' + result.items[2].snippet.channelTitle)
+      }
+    })
+  }
 })
 client.login(config.token)
