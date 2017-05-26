@@ -101,9 +101,6 @@ client.on('message', msg => {
   console.log('Something went wrong!', err)
 })
   }
-  if (msg.content === '!help') {
-    msg.channel.sendMessage('Hi you can use the youtube service by typing "!youtube myresearch"! I will do the best for you')
-  }
   if (msg.content.startsWith('!youtube ')) {
     youtube.search(msg.content.substring(6), 3, function (error, result) {
       if (error) {
@@ -116,14 +113,23 @@ client.on('message', msg => {
       }
     })
   }
-  if (msg.content.startsWith('youtube-user ')) {
-    youtube.search(msg.content.substring(14), 3, function (error, result) {
+  if (msg.content.startsWith('!youtube-user ')) {
+    youtube.search(msg.content.substring(15), 3, function (error, result) {
       if (error) {
         console.log(error)
       } else {
         msg.channel.sendMessage('Voilà le premier lien en rapport avec votre recherche https://www.youtube.com/user/' + result.items[0].snippet.channelTitle)
         msg.channel.sendMessage('Voilà le premier lien en rapport avec votre recherche https://www.youtube.com/user/' + result.items[1].snippet.channelTitle)
         msg.channel.sendMessage('Voilà le premier lien en rapport avec votre recherche https://www.youtube.com/user/' + result.items[2].snippet.channelTitle)
+      }
+    })
+  }
+  if (msg.content.startsWith('!youtube-playlist ')) {
+    youtube.search(msg.content.substring(18), 3, function (error, result) {
+      if (error) {
+        console.log(error)
+      } else {
+        msg.channel.sendMessage('Voilà le premier lien en rapport avec votre recherche https://www.youtube.com/playlist?list=' + result.items[0].id.playlistId)
       }
     })
   }
