@@ -69,6 +69,7 @@ client.on('message', msg => {
   console.log('Something went wrong!', err)
 })
   }
+<<<<<<< HEAD
   if (msg.content.startsWith('!spotify track ')) {
     spotifyApi.searchTracks('track:' + msg.content.substring(16))
 .then(function (data) {
@@ -140,4 +141,5 @@ client.on('message', msg => {
     })
   }
 })
+
 client.login(config.token)
