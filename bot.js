@@ -103,9 +103,11 @@ client.on('message', msg => {
   }
   if (msg.content.startsWith('!youtube ')) {
     youtube.search(msg.content.substring(6), 3, function (error, result) {
+      youtube.addParam('type', 'video')
       if (error) {
         console.log(error)
       } else {
+        youtube.addParam('type', 'video')
         var stockitemty = result.items
         msg.channel.sendMessage('Voilà le premier lien en rapport avec votre recherche https://www.youtube.com/watch?v=' + stockitemty[0].id.videoId)
         msg.channel.sendMessage('Et voici le deuxième https://www.youtube.com/watch?v=' + stockitemty[1].id.videoId)
@@ -125,11 +127,15 @@ client.on('message', msg => {
     })
   }
   if (msg.content.startsWith('!youtube-playlist ')) {
+    youtube.addParam('type', 'playlist')
     youtube.search(msg.content.substring(18), 3, function (error, result) {
       if (error) {
         console.log(error)
       } else {
+        youtube.addParam('type', 'playlist')
         msg.channel.sendMessage('Voilà le premier lien en rapport avec votre recherche https://www.youtube.com/playlist?list=' + result.items[0].id.playlistId)
+        msg.channel.sendMessage('Voilà le premier lien en rapport avec votre recherche https://www.youtube.com/playlist?list=' + result.items[1].id.playlistId)
+        msg.channel.sendMessage('Voilà le premier lien en rapport avec votre recherche https://www.youtube.com/playlist?list=' + result.items[2].id.playlistId)
       }
     })
   }
