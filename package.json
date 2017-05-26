@@ -19,6 +19,7 @@
   "homepage": "https://gitlab.com/pierrick.bignet/cloud-discord-bot#README",
   "dependencies": {
     "discord.js": "^11.1.0",
+    "eslint": "^3.19.0",
     "eslint-config-standard": "^10.2.1",
     "google-translate": "^2.0.4",
     "node-rest-client-promise": "^2.0.0",
