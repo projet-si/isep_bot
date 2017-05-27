@@ -24,6 +24,8 @@
     "eslint-config-standard": "^10.2.1",
     "google-translate": "^2.0.4",
     "node-rest-client-promise": "^2.0.0",
+    "openweather-apis": "^3.3.2",
+    "openweather-node": "0.0.4",
     "spotify-web-api-node": "^2.4.0"
   },
   "devDependencies": {

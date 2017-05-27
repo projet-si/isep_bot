@@ -11,6 +11,9 @@ var spotifyApi = new SpotifyWebApi({
 var YouTube = require('youtube-node')
 var youtube = new YouTube()
 youtube.setKey('AIzaSyA961WArdG_rzAFtRqEaWsE98ZiM4Sa7Lw')
+var weather = require('Openweather-Node')
+weather.setCulture('fr')
+weather.setAPPID('6ab094674da884c7449b419d3cd8f77d')
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.username}!`)
@@ -137,6 +140,46 @@ client.on('message', msg => {
         msg.channel.sendMessage('Voilà le premier lien en rapport avec votre recherche https://www.youtube.com/playlist?list=' + result.items[0].id.playlistId)
         msg.channel.sendMessage('Voilà le premier lien en rapport avec votre recherche https://www.youtube.com/playlist?list=' + result.items[1].id.playlistId)
         msg.channel.sendMessage('Voilà le premier lien en rapport avec votre recherche https://www.youtube.com/playlist?list=' + result.items[2].id.playlistId)
+      }
+    })
+  }
+  if (msg.content.startsWith('!openweather ')) {
+    weather.now(msg.content.substring(13), function (error, aData) {
+      if (error) {
+        console.log(error)
+      } else {
+        var deg = aData.values.main.temp - 273.15
+        var degmin = aData.values.main.temp_min - 273.15
+        var degmax = aData.values.main.temp_max - 273.15
+        var kph = aData.values.wind.speed * 1.61
+        msg.channel.sendMessage('La température actuelle est de ' + deg + '°C')
+        msg.channel.sendMessage('Nous avons une humidité environ égale à ' + aData.values.main.humidity + '%')
+        msg.channel.sendMessage('Le vent souffle à ' + kph + ' km/h')
+        msg.channel.sendMessage('La température maximale atteindra ' + degmax + '°C tandis que la température minimale sera de ' + degmin + '°C')
+        msg.channel.sendMessage('Autrement dit, on pourrait traduire les informations précédentes par ' + aData.values.weather[0].description)
+      }
+    })
+  }
+  if (msg.content.startsWith('!forecast ')) {
+    weather.forecast(msg.content.substring(10), function (error, aData) {
+      if (error) {
+        console.log(error)
+      } else {
+        var deg1 = aData.values.list[0].main.temp - 273.15
+        var deg2 = aData.values.list[1].main.temp - 273.15
+        var deg3 = aData.values.list[2].main.temp - 273.15
+        var deg4 = aData.values.list[3].main.temp - 273.15
+        var deg5 = aData.values.list[4].main.temp - 273.15
+        msg.channel.sendMessage('Vous avez demandé une prévision de 5 jours ? La voici, la température aujourd hui, soit le jour 1 est de ' + deg1 + '°C')
+        msg.channel.sendMessage('Autrement dit, il fera : ' + aData.values.list[0].weather[0].description)
+        msg.channel.sendMessage('La température pour le jour 2 est de ' + deg2 + '°C')
+        msg.channel.sendMessage('Autrement dit, il fera : ' + aData.values.list[1].weather[0].description)
+        msg.channel.sendMessage('La température pour le jour 3 est de ' + deg3 + '°C')
+        msg.channel.sendMessage('Autrement dit, il fera : ' + aData.values.list[2].weather[0].description)
+        msg.channel.sendMessage('La température pour le jour 4 est de ' + deg4 + '°C')
+        msg.channel.sendMessage('Autrement dit, il fera : ' + aData.values.list[3].weather[0].description)
+        msg.channel.sendMessage('La température pour le jour 5 est de ' + deg5 + '°C')
+        msg.channel.sendMessage('Autrement dit, il fera : ' + aData.values.list[4].weather[0].description)
       }
     })
   }
