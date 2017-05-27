@@ -16,7 +16,9 @@ Il est possible de rechercher 3 user, 3 playlists, 3 vidéos seuleument à l'aid
 
 !youtube-playlist marecherche 
 
-Spotify : !spotify marecherche
+Spotify : 
+---------
+!spotify marecherche
 Pour spotify, nous avons réussi à retourner les 3 résultats les plus probants propre à la recherche (track, artiste, album) mais aussi le bonus demandé c'est à dire soit 3 albums, 3 artistes ou 3 tracks.
 
 !spotify artiste marecherche
@@ -25,7 +27,9 @@ Pour spotify, nous avons réussi à retourner les 3 résultats les plus probants
 
 !spotify album marecherche
 
-Google translate : !translate mywords
+Google translate : 
+------------------
+!translate mywords
 Le myword est traduit en espagnol.
 
 !!translate language mywords
@@ -37,9 +41,12 @@ Indique toutes les langues disponibles à l'utilisateur.
 
 
 Twitter :
+---------
 
 
-Openweather : !openweather marecherche
+Openweather : 
+-------------
+!openweather marecherche
 Ici, il faut que la recherche soit le nom d'une ville en anglais.
 Cette première requête retourne des éléments sur la météo actuelle d'une ville, son humidité, sa température (actuelle, minimale, maximale), la vitesse du vent et enfin nous avons ajouté une petite description par exemple "ciel dégagé, "peu nuageux" etc.
 
