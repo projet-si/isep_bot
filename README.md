@@ -6,7 +6,9 @@ Baby-Groot
 
 # Commandes
 
-Youtube : !youtube marecherche
+Youtube : 
+---------
+!youtube marecherche
 Pour youtube, nous avons réussi a retourner les 3 résultats les plus probants propre à la recherche.
 Il est possible de rechercher 3 user, 3 playlists, 3 vidéos seuleument à l'aide des commandes suivantes :
 
