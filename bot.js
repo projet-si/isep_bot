@@ -8,11 +8,13 @@ var spotifyApi = new SpotifyWebApi({
   clientId: '533a5af89e504b7393f75c477f13c3cd',
   clientSecret: '09e925930f1547b8b95d7696272e3c32'
 })
+var YouTube = require('youtube-node')
+var youtube = new YouTube()
+youtube.setKey('AIzaSyA961WArdG_rzAFtRqEaWsE98ZiM4Sa7Lw')
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.username}!`)
 })
-
 client.on('message', msg => {
   // Check if the message has been posted in a channel where the bot operates
   // and that the author is not the bot itself
@@ -67,6 +69,7 @@ client.on('message', msg => {
   console.log('Something went wrong!', err)
 })
   }
+
   if (msg.content.startsWith('!spotify track ')) {
     spotifyApi.searchTracks('track:' + msg.content.substring(16))
 .then(function (data) {
@@ -98,6 +101,44 @@ client.on('message', msg => {
 }, function (err) {
   console.log('Something went wrong!', err)
 })
+  }
+  if (msg.content.startsWith('!youtube ')) {
+    youtube.search(msg.content.substring(6), 3, function (error, result) {
+      youtube.addParam('type', 'video')
+      if (error) {
+        console.log(error)
+      } else {
+        youtube.addParam('type', 'video')
+        var stockitemty = result.items
+        msg.channel.sendMessage('Voilà le premier lien en rapport avec votre recherche https://www.youtube.com/watch?v=' + stockitemty[0].id.videoId)
+        msg.channel.sendMessage('Et voici le deuxième https://www.youtube.com/watch?v=' + stockitemty[1].id.videoId)
+        msg.channel.sendMessage('Et enfin le dernier https://www.youtube.com/watch?v=' + stockitemty[2].id.videoId)
+      }
+    })
+  }
+  if (msg.content.startsWith('!youtube-user ')) {
+    youtube.search(msg.content.substring(15), 3, function (error, result) {
+      if (error) {
+        console.log(error)
+      } else {
+        msg.channel.sendMessage('Voilà le premier lien en rapport avec votre recherche https://www.youtube.com/user/' + result.items[0].snippet.channelTitle)
+        msg.channel.sendMessage('Voilà le premier lien en rapport avec votre recherche https://www.youtube.com/user/' + result.items[1].snippet.channelTitle)
+        msg.channel.sendMessage('Voilà le premier lien en rapport avec votre recherche https://www.youtube.com/user/' + result.items[2].snippet.channelTitle)
+      }
+    })
+  }
+  if (msg.content.startsWith('!youtube-playlist ')) {
+    youtube.addParam('type', 'playlist')
+    youtube.search(msg.content.substring(18), 3, function (error, result) {
+      if (error) {
+        console.log(error)
+      } else {
+        youtube.addParam('type', 'playlist')
+        msg.channel.sendMessage('Voilà le premier lien en rapport avec votre recherche https://www.youtube.com/playlist?list=' + result.items[0].id.playlistId)
+        msg.channel.sendMessage('Voilà le premier lien en rapport avec votre recherche https://www.youtube.com/playlist?list=' + result.items[1].id.playlistId)
+        msg.channel.sendMessage('Voilà le premier lien en rapport avec votre recherche https://www.youtube.com/playlist?list=' + result.items[2].id.playlistId)
+      }
+    })
   }
 })
 
