@@ -72,3 +72,10 @@ Cette première requête retourne des éléments sur la météo actuelle d'une v
 
 La recherche doit être le nom d'une ville en anglais.
 Cette deuxième requête retourne la témpérature actuelle et prévisionnelle sur 5 jours ainsi qu'une descrption générale de la météo pour chacun de ces jours.
+
+Problèmes rencontrés :
+----------------------
+
+Le compte travis a bien été configuré en cours avec le compte azure, cependant notre bot n'est plus déployé automatiquement.
+Nous avons essayé de configuré azure directement avec github mais là non plus, le déploiement ne fonctionne pas.
+Pour le lançer, nous sommes obligés de faire un pull de la master et écrire dans le terminal "node bot js" ou "npm start".
