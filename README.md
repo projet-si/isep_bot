@@ -1,6 +1,18 @@
 # Projet Bot Discord
 TODO: Ceci est le projet d'Architecture des SI : Bot Discord
 
+# Collaborateurs
+
+- Charlène Bernier
+
+- Yvan Bezard-Falgas
+
+- Maxime Pasqualini
+
+- Mickael Petit
+
+- Sacha Mettoudi
+
 # Nom du Bot
 Baby-Groot
 
@@ -60,10 +72,3 @@ Cette première requête retourne des éléments sur la météo actuelle d'une v
 
 La recherche doit être le nom d'une ville en anglais.
 Cette deuxième requête retourne la témpérature actuelle et prévisionnelle sur 5 jours ainsi qu'une descrption générale de la météo pour chacun de ces jours.
-
-# Collaborateurs
-- Charlène Bernier
-- Yvan Bezard-Falgas
-- Maxime Pasqualini
-- Mickael Petit
-- Sacha Mettoudi
