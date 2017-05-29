@@ -60,6 +60,9 @@ Indique toutes les langues disponibles à l'utilisateur.
 Twitter :
 ---------
 
+Pokemon :
+---------
+
 
 Openweather : 
 -------------
