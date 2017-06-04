@@ -14,6 +14,7 @@ youtube.setKey('AIzaSyA961WArdG_rzAFtRqEaWsE98ZiM4Sa7Lw')
 var weather = require('Openweather-Node')
 weather.setCulture('fr')
 weather.setAPPID('6ab094674da884c7449b419d3cd8f77d')
+spotifyApi.clientCredentialsGrant()
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.username}!`)
@@ -63,47 +64,35 @@ client.on('message', msg => {
   }
 
   if (msg.content.startsWith('!spotify ')) {
-    spotifyApi.searchTracks(msg.content.substring(9))
-.then(function (data) {
-  msg.channel.sendMessage('Voici le premier résultat le plus probant avec votre recherche ' + data.body.tracks.items[0].external_urls.spotify)
-  msg.channel.sendMessage('Voici le deuxième résultat le plus probant avec votre recherche ' + data.body.tracks.items[1].external_urls.spotify)
-  msg.channel.sendMessage('Voici le troisème résultat le plus probant avec votre recherche ' + data.body.tracks.items[2].external_urls.spotify)
-}, function (err) {
-  console.log('Something went wrong!', err)
-})
-  }
-
-  if (msg.content.startsWith('!spotify track ')) {
-    spotifyApi.searchTracks('track:' + msg.content.substring(16))
-.then(function (data) {
-  msg.channel.sendMessage('Voici le premier résultat le plus probant avec votre recherche ' + data.body.tracks.items[0].external_urls.spotify)
-  msg.channel.sendMessage('Voici le deuxième résultat le plus probant avec votre recherche ' + data.body.tracks.items[1].external_urls.spotify)
-  msg.channel.sendMessage('Voici le troisème résultat le plus probant avec votre recherche ' + data.body.tracks.items[2].external_urls.spotify)
-}, function (err) {
-  console.log('Something went wrong!', err)
-})
-  }
-
-  if (msg.content.startsWith('!spotify artiste ')) {
-    spotifyApi.searchTracks('artist:' + msg.content.substring(17))
-.then(function (data) {
-  msg.channel.sendMessage('Voici le premier résultat le plus probant avec votre recherche ' + data.body.tracks.items[0].external_urls.spotify)
-  msg.channel.sendMessage('Voici le deuxième résultat le plus probant avec votre recherche ' + data.body.tracks.items[1].external_urls.spotify)
-  msg.channel.sendMessage('Voici le troisème résultat le plus probant avec votre recherche ' + data.body.tracks.items[2].external_urls.spotify)
-}, function (err) {
-  console.log('Something went wrong!', err)
-})
-  }
-
-  if (msg.content.startsWith('!spotify album ')) {
-    spotifyApi.searchTracks('album:' + msg.content.substring(16))
-.then(function (data) {
-  msg.channel.sendMessage('Voici le premier résultat le plus probant avec votre recherche ' + data.body.tracks.items[0].external_urls.spotify)
-  msg.channel.sendMessage('Voici le deuxième résultat le plus probant avec votre recherche ' + data.body.tracks.items[1].external_urls.spotify)
-  msg.channel.sendMessage('Voici le troisème résultat le plus probant avec votre recherche ' + data.body.tracks.items[2].external_urls.spotify)
-}, function (err) {
-  console.log('Something went wrong!', err)
-})
+    spotifyApi.clientCredentialsGrant()
+        .then(function (data) {
+          spotifyApi.setAccessToken(data.body['access_token'])
+          if (msg.content.match('!spotify track ')) {
+            var song = msg.content.substring(msg.content.lastIndexOf('!spotify track ') + '!spotify track '.length, msg.content.length)
+            spotifyApi.searchTracks(song)
+            .then(function (data) {
+              for (var title = 0; title < 3; title++) {
+                msg.channel.sendMessage('Voici un des résultats le plus probants avec votre recherche ' + data.body.tracks.items[title].external_urls.spotify)
+              }
+            })
+          } else if (msg.content.match('!spotify artist ')) {
+            var artist = msg.content.substring(msg.content.lastIndexOf('!spotify artist ') + '!spotify artist '.length, msg.content.length)
+            spotifyApi.searchArtists(artist)
+            .then(function (data) {
+              for (var nameart = 0; nameart < 3; nameart++) {
+                msg.channel.sendMessage('Voici un des résultats le plus probants avec votre recherche ' + data.body.artists.items[nameart].external_urls.spotify)
+              }
+            })
+          } else if (msg.content.match('!spotify album ')) {
+            var album = msg.content.substring(msg.content.lastIndexOf('!spotify album ') + '!spotify album '.length, msg.content.length)
+            spotifyApi.searchAlbums(album)
+            .then(function (data) {
+              for (var namealb = 0; namealb < 3; namealb++) {
+                msg.channel.sendMessage('Voici un des résultat le plus probants avec votre recherche ' + data.body.albums.items[namealb].external_urls.spotify)
+              }
+            })
+          }
+        })
   }
   if (msg.content.startsWith('!youtube ')) {
     youtube.search(msg.content.substring(6), 3, function (error, result) {
@@ -119,6 +108,7 @@ client.on('message', msg => {
       }
     })
   }
+
   if (msg.content.startsWith('!youtube-user ')) {
     youtube.search(msg.content.substring(15), 3, function (error, result) {
       if (error) {
