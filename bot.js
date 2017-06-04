@@ -88,7 +88,7 @@ client.on('message', msg => {
             spotifyApi.searchAlbums(album)
             .then(function (data) {
               for (var namealb = 0; namealb < 3; namealb++) {
-                msg.channel.sendMessage('Voici un des résultat le plus probants avec votre recherche ' + data.body.albums.items[namealb].external_urls.spotify)
+                msg.channel.sendMessage('Voici un des résultats le plus probants avec votre recherche ' + data.body.albums.items[namealb].external_urls.spotify)
               }
             })
           }
@@ -115,8 +115,8 @@ client.on('message', msg => {
         console.log(error)
       } else {
         msg.channel.sendMessage('Voilà le premier lien en rapport avec votre recherche https://www.youtube.com/user/' + result.items[0].snippet.channelTitle)
-        msg.channel.sendMessage('Voilà le premier lien en rapport avec votre recherche https://www.youtube.com/user/' + result.items[1].snippet.channelTitle)
-        msg.channel.sendMessage('Voilà le premier lien en rapport avec votre recherche https://www.youtube.com/user/' + result.items[2].snippet.channelTitle)
+        msg.channel.sendMessage('Et voici le deuxième https://www.youtube.com/user/' + result.items[1].snippet.channelTitle)
+        msg.channel.sendMessage('Et enfin le dernier https://www.youtube.com/user/' + result.items[2].snippet.channelTitle)
       }
     })
   }
@@ -128,8 +128,8 @@ client.on('message', msg => {
       } else {
         youtube.addParam('type', 'playlist')
         msg.channel.sendMessage('Voilà le premier lien en rapport avec votre recherche https://www.youtube.com/playlist?list=' + result.items[0].id.playlistId)
-        msg.channel.sendMessage('Voilà le premier lien en rapport avec votre recherche https://www.youtube.com/playlist?list=' + result.items[1].id.playlistId)
-        msg.channel.sendMessage('Voilà le premier lien en rapport avec votre recherche https://www.youtube.com/playlist?list=' + result.items[2].id.playlistId)
+        msg.channel.sendMessage('Et voici le deuxième https://www.youtube.com/playlist?list=' + result.items[1].id.playlistId)
+        msg.channel.sendMessage('Et enfin le dernier https://www.youtube.com/playlist?list=' + result.items[2].id.playlistId)
       }
     })
   }
