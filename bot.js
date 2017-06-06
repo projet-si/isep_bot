@@ -15,6 +15,13 @@ var weather = require('Openweather-Node')
 weather.setCulture('fr')
 weather.setAPPID('6ab094674da884c7449b419d3cd8f77d')
 spotifyApi.clientCredentialsGrant()
+var Twit = require('twit')
+var Twitter = new Twit({
+  consumer_key: config.consumer_key,
+  consumer_secret: config.consumer_secret,
+  access_token: config.access_token,
+  access_token_secret: config.access_token_secret
+})
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.username}!`)
@@ -172,6 +179,31 @@ client.on('message', msg => {
         msg.channel.sendMessage('Autrement dit, il fera : ' + aData.values.list[4].weather[0].description)
       }
     })
+  }
+  if (msg.content.startsWith('!twitter ')) {
+    var tweetContent = msg.content.substring(9, 15)
+    if (tweetContent === 'search') {
+      /** SEARCH TWEET WHICH MENTIONS Baby_Groot_ISEP ACCOUNT **/
+      Twitter.get('search/tweets', {q: 'Baby_Groot_ISEP'}, function webhook (error, data, response) {
+        if (error) throw error
+        var tweets = data.statuses
+        for (var i = 0; i < tweets.length; i++) {
+          msg.channel.send('"' + tweets[i].text + '" by @' + tweets[i].user.screen_name)
+        }
+      })
+    } else {
+      /** POST TWEET **/
+      tweetContent = msg.content.substring(9)
+      var tweet = {status: tweetContent}
+      Twitter.post('statuses/update', tweet, tweeted)
+    }
+  }
+  function tweeted (err, data, response) {
+    if (err) {
+      msg.channel.send('Something went wrong!', err)
+    } else {
+      msg.channel.send('Your tweet has been tweeted successfully!')
+    }
   }
 })
 
