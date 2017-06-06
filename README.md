@@ -59,6 +59,11 @@ Il est possible de rechercher 3 user, 3 playlists, 3 vidéos seuleument à l'aid
 
 Twitter :
 ---------
+!twitter monTweet: Tweet sur le compte @Baby_Groot_ISEP
+
+!twitter search: ressort tous les tweets qui citent le compte @Baby_Groot_ISEP
+
+https://twitter.com/Baby_Groot_ISEP
 
 Pokemon :
 ---------
