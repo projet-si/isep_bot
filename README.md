@@ -21,18 +21,19 @@ Baby-Groot
 Spotify : 
 ---------
 Pour spotify, nous avons réussi à retourner les 3 résultats les plus probants propre à la recherche (track, artiste, album) et donc le bonus demandé et intégré comme prévu, c'est à dire soit 3 albums, 3 artistes ou 3 tracks.
-'''
+```
 !spotify track marecherche
 
 !spotify artist marecherche
 
 !spotify album marecherche
-'''
+```
 
 Bien entendu, la recherche doit existée sinon, nous ne retournons rien.
 
 Google translate : 
 ------------------
+```
 !translate mywords
 
 Le myword est traduit en espagnol.
@@ -42,7 +43,7 @@ Le myword est traduit en espagnol.
 language : langue dans laquelle on souhaite traduire (exemple : espagnol ==> es)
 mywords : mot ou phrase traduite
 
-!help
+!help```
 
 Indique toutes les langues disponibles à l'utilisateur.
 
