@@ -43,12 +43,13 @@ Le myword est traduit en espagnol.
 language : langue dans laquelle on souhaite traduire (exemple : espagnol ==> es)
 mywords : mot ou phrase traduite
 
-!help```
-
+!help
 Indique toutes les langues disponibles à l'utilisateur.
+```
 
 Youtube : 
 ---------
+```
 !youtube marecherche
 
 Pour youtube, nous avons réussi a retourner les 3 résultats les plus probants propre à la recherche.
@@ -57,13 +58,15 @@ Il est possible de rechercher 3 user, 3 playlists, 3 vidéos seuleument à l'aid
 !youtube-user marecherche
 
 !youtube-playlist marecherche 
-
+```
 
 Twitter :
 ---------
+```
 !twitter monTweet: Tweet sur le compte @Baby_Groot_ISEP
 
 !twitter search: ressort tous les tweets qui citent le compte @Baby_Groot_ISEP
+```
 
 https://twitter.com/Baby_Groot_ISEP
 
