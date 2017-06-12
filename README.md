@@ -52,7 +52,7 @@ Il est possible de rechercher 3 user, 3 playlists, 3 vidéos seuleument à l'aid
 Twitter :
 ---------
 ```
-!twitter monTweet: Tweet sur le compte @Baby_Groot_ISEP avec une limite de 144 caractères.
+!twitter monTweet: Tweet sur le compte @Baby_Groot_ISEP avec une limite de 140 caractères.
 
 !twitter search: ressort tous les tweets qui citent le compte @Baby_Groot_ISEP
 ```
