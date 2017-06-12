@@ -83,7 +83,7 @@ Le nom des pokemon doit être en anglais.
 Le pokemon évolue si évolution possible et retourne un message de présentation du nouveau pokemon.
 L'avatar et username sont changés.
 
-NB : le username et l'avatar ne peuvent être changés que 2 fois par heure sur discord.
+NB : le username et l'avatar ne peuvent être changés que 2 fois par heure sur discord et par compte (user) discord.
 
 
 Openweather : 
