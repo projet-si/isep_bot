@@ -16,6 +16,17 @@ TODO: Ceci est le projet d'Architecture des SI : Bot Discord
 # Nom du Bot
 Baby-Groot
 
+# Retour API avec ava
+
+Les tests de connexion aux API se trouvent dans le répertoire tests.
+Nous avons réussi à obtenir un retour 200 sur travis pour chacune des api suivantes :
+
+- openweather
+- youtube
+- spotify 
+- google translate
+- pokemon.
+
 # Commandes
 
 Google translate : 
