@@ -18,19 +18,6 @@ Baby-Groot
 
 # Commandes
 
-Spotify : 
----------
-Pour spotify, nous avons réussi à retourner les 3 résultats les plus probants propre à la recherche (track, artiste, album) et donc le bonus demandé et intégré comme prévu, c'est à dire soit 3 albums, 3 artistes ou 3 tracks.
-```
-!spotify track marecherche
-
-!spotify artist marecherche
-
-!spotify album marecherche
-```
-
-Bien entendu, la recherche doit existée sinon, nous ne retournons rien.
-
 Google translate : 
 ------------------
 ```
@@ -58,20 +45,45 @@ Il est possible de rechercher 3 user, 3 playlists, 3 vidéos seuleument à l'aid
 !youtube-user marecherche
 
 !youtube-playlist marecherche 
+
+!youtube-videos marecherche
 ```
 
 Twitter :
 ---------
 ```
-!twitter monTweet: Tweet sur le compte @Baby_Groot_ISEP
+!twitter monTweet: Tweet sur le compte @Baby_Groot_ISEP avec une limite de 144 caractères.
 
 !twitter search: ressort tous les tweets qui citent le compte @Baby_Groot_ISEP
 ```
 
 https://twitter.com/Baby_Groot_ISEP
 
+Spotify : 
+---------
+Avant la mise à jour de l'API de spotify api, nous arrivions à effectuer une recherche générale. Depuis la mise à jour nous arrivons à retourner les 3 résultats les plus probants propre à la recherche (seuleument 3 tracks ou 3 artistes ou 3 albums).
+```
+!spotify track marecherche
+
+!spotify artist marecherche
+
+!spotify album marecherche
+```
+
+Bien entendu, la recherche doit existée sinon, nous ne retournons rien.
+
 Pokemon :
 ---------
+```
+!pokemon monpokemon
+
+!pokemon evolve
+```
+
+Le pokemon évolue si évolution possible et retourne un message de présentation du nouveau pokemon.
+L'avatar et username sont changés.
+
+NB : le username et l'avatar ne peuvent être changés que 2 fois par heure sur discord.
 
 
 Openweather : 
@@ -88,6 +100,8 @@ Cette première requête retourne des éléments sur la météo actuelle d'une v
 ```
 La recherche doit être le nom d'une ville en anglais.
 Cette deuxième requête retourne la témpérature actuelle et prévisionnelle sur 5 jours ainsi qu'une descrption générale de la météo pour chacun de ces jours.
+
+Dans le cadre d'openweather, nous n'avons pas réussi à réaliser le bonus.
 
 Problèmes rencontrés :
 ----------------------
