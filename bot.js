@@ -22,6 +22,8 @@ var Twitter = new Twit({
   access_token: config.access_token,
   access_token_secret: config.access_token_secret
 })
+var PokeApi = require('pokeapi')
+var api = PokeApi.v1()
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.username}!`)
@@ -101,44 +103,66 @@ client.on('message', msg => {
           }
         })
   }
-  if (msg.content.startsWith('!youtube ')) {
-    youtube.search(msg.content.substring(6), 3, function (error, result) {
-      youtube.addParam('type', 'video')
-      if (error) {
-        console.log(error)
-      } else {
-        youtube.addParam('type', 'video')
-        var stockitemty = result.items
-        msg.channel.sendMessage('Voilà le premier lien en rapport avec votre recherche https://www.youtube.com/watch?v=' + stockitemty[0].id.videoId)
-        msg.channel.sendMessage('Et voici le deuxième https://www.youtube.com/watch?v=' + stockitemty[1].id.videoId)
-        msg.channel.sendMessage('Et enfin le dernier https://www.youtube.com/watch?v=' + stockitemty[2].id.videoId)
-      }
-    })
-  }
-
   if (msg.content.startsWith('!youtube-user ')) {
-    youtube.search(msg.content.substring(15), 3, function (error, result) {
+    var username = msg.content.substring(14)
+    youtube.search(username, 3, function (error, result) {
       if (error) {
         console.log(error)
       } else {
-        msg.channel.sendMessage('Voilà le premier lien en rapport avec votre recherche https://www.youtube.com/user/' + result.items[0].snippet.channelTitle)
-        msg.channel.sendMessage('Et voici le deuxième https://www.youtube.com/user/' + result.items[1].snippet.channelTitle)
-        msg.channel.sendMessage('Et enfin le dernier https://www.youtube.com/user/' + result.items[2].snippet.channelTitle)
+        msg.channel.send('Lien de la page de l\'utilisateur "' + username + '" : https://www.youtube.com/user/' + username)
       }
     })
-  }
-  if (msg.content.startsWith('!youtube-playlist ')) {
+  } else if (msg.content.startsWith('!youtube-videos ')) {
+    youtube.addParam('type', 'video')
+    youtube.search(msg.content.substring(16), 3, function (error, result) {
+      if (error) {
+        console.log(error)
+      } else {
+        for (var i = 1; i <= 3; i++) {
+          msg.channel.send('Lien n∞' + (i) + ' : https://www.youtube.com/watch?v=' + result.items[i - 1].id.videoId)
+        }
+      }
+    })
+  } else if (msg.content.startsWith('!youtube-playlist ')) {
     youtube.addParam('type', 'playlist')
     youtube.search(msg.content.substring(18), 3, function (error, result) {
       if (error) {
         console.log(error)
       } else {
-        youtube.addParam('type', 'playlist')
-        msg.channel.sendMessage('Voilà le premier lien en rapport avec votre recherche https://www.youtube.com/playlist?list=' + result.items[0].id.playlistId)
-        msg.channel.sendMessage('Et voici le deuxième https://www.youtube.com/playlist?list=' + result.items[1].id.playlistId)
-        msg.channel.sendMessage('Et enfin le dernier https://www.youtube.com/playlist?list=' + result.items[2].id.playlistId)
+        for (var i = 1; i <= 3; i++) {
+          msg.channel.send('Lien n∞' + (i) + ' : https://www.youtube.com/playlist?list=' + result.items[i - 1].id.playlistId)
+        }
       }
     })
+  } else if (msg.content.startsWith('!youtube ')) {
+    var searchContent = msg.content.substring(9)
+    console.log(searchContent)
+    if (searchContent === ' ') {
+      msg.channel.send('You must enter some text')
+    } else if (searchContent === '!youtube') {
+      msg.channel.send('You must enter somtehing else than "!youtube"')
+    } else {
+      youtube.search(searchContent, 3, function (error, result) {
+        if (error) {
+          console.log(error)
+        } else {
+          var stockitemty = result.items
+          for (var i = 1; i <= 3; i++) {
+            switch (stockitemty[i - 1].id.kind) {
+              case 'youtube#channel':
+                msg.channel.send('Lien n∞' + (i) + ' : https://www.youtube.com/channel/' + stockitemty[i - 1].id.channelId)
+                break
+              case 'youtube#video':
+                msg.channel.send('Lien n∞' + (i) + ' : https://www.youtube.com/watch?v=' + stockitemty[i - 1].id.videoId)
+                break
+              case 'youtube#playlist':
+                msg.channel.send('Lien n∞' + (i) + ' : https://www.youtube.com/playlist?list=' + stockitemty[i - 1].id.playlistId)
+                break
+            }
+          }
+        }
+      })
+    }
   }
   if (msg.content.startsWith('!openweather ')) {
     weather.now(msg.content.substring(13), function (error, aData) {
@@ -194,8 +218,12 @@ client.on('message', msg => {
     } else {
       /** POST TWEET **/
       tweetContent = msg.content.substring(9)
-      var tweet = {status: tweetContent}
-      Twitter.post('statuses/update', tweet, tweeted)
+      if (tweetContent.length > 140) {
+        msg.channel.send('Your tweet is too long !')
+      } else {
+        var tweet = {status: tweetContent}
+        Twitter.post('statuses/update', tweet, tweeted)
+      }
     }
   }
   function tweeted (err, data, response) {
@@ -204,6 +232,34 @@ client.on('message', msg => {
     } else {
       msg.channel.send('Your tweet has been tweeted successfully!')
     }
+  }
+  if (msg.content.startsWith('!pokemon ')) {
+    var pokemonChosen = msg.content.substring(9)
+    var newPokemon
+    if (pokemonChosen === 'evolve') {
+      var currentPokemon = client.username
+      api.get({ resource_uri: '/api/v1/pokemon/' + currentPokemon + '/' }).then(function (pokemon) {
+        newPokemon = pokemon.evolutions[0].to
+      })
+      console.log('evolution : ' + newPokemon)
+      if (newPokemon !== undefined) {
+        api.get({ resource_uri: '/api/v1/pokemon/' + newPokemon + '/' }).then(function (pokemon) {
+          msg.channel.send('Hello, now I am ' + pokemon.name + ' and I am pokemon number ' + pokemon.national_id + '. I am a ' + pokemon.types[0].name + ' pokemon. I am ' + pokemon.height + ' feet tall and I weight ' + pokemon.weight + ' pounds!')
+          changePokemon(newPokemon, pokemon.national_id)
+        })
+      } else {
+        msg.channel.send('This pokemon can not evolve!')
+      }
+    } else {
+      api.get({ resource_uri: '/api/v1/pokemon/' + pokemonChosen + '/' }).then(function (pokemon) {
+        msg.channel.send('Hello, my name is ' + pokemon.name + ' and I am pokemon number ' + pokemon.national_id + '. I am a ' + pokemon.types[0].name + ' pokemon. I am ' + pokemon.height + ' feet tall and I weight ' + pokemon.weight + ' pounds!')
+        changePokemon(pokemonChosen, pokemon.national_id)
+      })
+    }
+  }
+  function changePokemon (name, imageId) {
+    client.user.setUsername(name)
+    client.user.setAvatar('./pokemon/' + imageId + '.png')
   }
 })
 
