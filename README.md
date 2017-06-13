@@ -29,11 +29,13 @@ Nous avons réussi à obtenir un retour 200 sur travis pour chacune des api suiv
 
 # Prérequis
 
-Installation des dépendances dans le répertoire :
+1) Cloner/Download le répertoire en local. 
+
+2) Installation des dépendances dans le répertoire :
 ```
 npm i
 ```
-Démarrage du bot :
+3) Démarrage du bot :
 ```
 npm start ou node bot js
 ```
