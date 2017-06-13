@@ -27,6 +27,17 @@ Nous avons réussi à obtenir un retour 200 sur travis pour chacune des api suiv
 - google translate
 - pokemon.
 
+# Prérequis
+
+Installation des dépendances dans le répertoire :
+```
+npm i
+```
+Démarrage du bot :
+```
+npm start ou node bot js
+```
+
 # Commandes
 
 Google translate : 
